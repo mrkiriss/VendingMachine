@@ -11,6 +11,7 @@ import com.example.vendingmachine.Student;
 import com.example.vendingmachine.vendingmachine.products.IProduct;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 public class IVendingMachine implements Serializable {
     private final MutableLiveData<List<Student>>  queue;
+    private final MutableLiveData<List<IProduct>> chosenProducts;
     private final Map<IProduct, Integer> products;
 
     private ObservableField<String> status;
@@ -27,6 +29,7 @@ public class IVendingMachine implements Serializable {
 
     public IVendingMachine(List<Student> queue, Map<IProduct, Integer> products) {
         this.queue = new MutableLiveData<>();
+        this.chosenProducts=new MutableLiveData<>();
         this.products = products;
 
         this.status=new ObservableField<>();
@@ -43,6 +46,7 @@ public class IVendingMachine implements Serializable {
             this.status.set("Простаивает");
             this.student.set("Пустота");
             this.amount.set(0);
+            this.chosenProducts.setValue(new ArrayList<>());
             return;
         }
         ClientProcessing clientProcessing = new ClientProcessing();
@@ -55,6 +59,7 @@ public class IVendingMachine implements Serializable {
         @Override
         protected void onPreExecute(){
             status.set("Принимает");
+            chosenProducts.setValue(new ArrayList<>());
         }
 
         @Override
@@ -65,12 +70,13 @@ public class IVendingMachine implements Serializable {
             }
 
             // обновление имени покупателя
-            publishProgress(new ProgressUpdateRequest(currentStudent.getName()+"\n"+currentStudent.getId(), ProgressUpdateRequest.STUDENT_KEY));
+            publishProgress(new ProgressUpdateRequest(currentStudent.getName() + "\n" + currentStudent.getId(), ProgressUpdateRequest.STUDENT_KEY));
 
             mySleep();
             //выбор продуктов
             Log.d("IVendingMachine", "Выбор продуктов");
             Map<IProduct, Integer> chosenProducts = choseProducts();
+            publishProgress(new ProgressUpdateRequest(convertChosenProductsToList(chosenProducts), ProgressUpdateRequest.CHOSEN_PRODUCTS_KEY));
             // подсчёт суммы выбора
             Log.d("IVendingMachine", "Подсчёт суммы выбора");
             Integer sum = calculatePrice(chosenProducts);
@@ -87,6 +93,16 @@ public class IVendingMachine implements Serializable {
 
         }
 
+        private List<IProduct> convertChosenProductsToList(Map<IProduct, Integer> chosenProducts){
+            List<IProduct> result = new ArrayList<>();
+            for (IProduct product: chosenProducts.keySet()){
+                if (chosenProducts.get(product)==0) continue;
+                product.setNumber(chosenProducts.get(product));
+                result.add(product);
+            }
+
+            return result;
+        }
         @Override
         protected void onPostExecute(String result){
             List<Student> students = queue.getValue();
@@ -116,6 +132,9 @@ public class IVendingMachine implements Serializable {
                     break;
                 case ProgressUpdateRequest.STUDENT_KEY:
                     student.set((String) request.getValue());
+                    break;
+                case ProgressUpdateRequest.CHOSEN_PRODUCTS_KEY:
+                    chosenProducts.setValue((List<IProduct>) request.getValue());
                     break;
             }
         }
@@ -152,13 +171,14 @@ public class IVendingMachine implements Serializable {
         }
     }
 
-    class ProgressUpdateRequest{
+    static class ProgressUpdateRequest{
         private Object value;
         private String key;
 
         public final static String STATUS_KEY="status";
         public final static String AMOUNT_KEY ="amount";
         public final static String STUDENT_KEY="student";
+        public final static String CHOSEN_PRODUCTS_KEY="chosenProducts";
 
         public ProgressUpdateRequest(Object value, String key){
             this.key = key;
@@ -184,4 +204,7 @@ public class IVendingMachine implements Serializable {
         return amount;
     }
     public MutableLiveData<List<Student>> getQueue(){return queue;}
+    public MutableLiveData<List<IProduct>> getChosenProducts() {
+        return chosenProducts;
+    }
 }

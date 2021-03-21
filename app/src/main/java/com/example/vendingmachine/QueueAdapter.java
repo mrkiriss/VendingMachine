@@ -43,7 +43,7 @@ public class QueueAdapter extends RecyclerView.Adapter<QueueAdapter.StudentViewH
 
     public static class StudentViewHolder extends RecyclerView.ViewHolder{
 
-        ItemStudentBinding binding;
+        private ItemStudentBinding binding;
 
         public StudentViewHolder(@NonNull ItemStudentBinding binding) {
             super(binding.cardView);

@@ -19,7 +19,7 @@ public class Campus {
 
     private final int NUMBER_OF_VENDING_MACHINES=4;
     private final List<IProductFactory> productFactories;
-    private final int NUMBER_OF_PRODUCT_ONE_CATEGORY=0;
+    private final int NUMBER_OF_PRODUCT_ONE_CATEGORY=40;
     private final List<Student> students;
 
     private List<IVendingMachine> vendingMachines;

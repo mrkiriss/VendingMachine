@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment1 = new BlankFragment();
         Bundle data1 = new Bundle();
         data1.putSerializable("vending", campus.getVendingMachine(0));
+        data1.putString("vendingName", "Торговый автомат 1");
         fragment1.setArguments(data1);
 
         getSupportFragmentManager().beginTransaction()
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment2 = new BlankFragment();
         Bundle data2 = new Bundle();
         data2.putSerializable("vending", campus.getVendingMachine(1));
+        data2.putString("vendingName", "Торговый автомат 2");
         fragment2.setArguments(data2);
 
         getSupportFragmentManager().beginTransaction()
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment3 = new BlankFragment();
         Bundle data3 = new Bundle();
         data3.putSerializable("vending", campus.getVendingMachine(2));
+        data3.putString("vendingName", "Торговый автомат 3");
         fragment3.setArguments(data3);
 
         getSupportFragmentManager().beginTransaction()
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment4 = new BlankFragment();
         Bundle data4 = new Bundle();
         data4.putSerializable("vending", campus.getVendingMachine(3));
+        data4.putString("vendingName", "Торговый автомат 4");
         fragment4.setArguments(data4);
 
         getSupportFragmentManager().beginTransaction()
