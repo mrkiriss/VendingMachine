@@ -19,7 +19,7 @@ public class Campus {
 
     private final int NUMBER_OF_VENDING_MACHINES=4;
     private final List<IProductFactory> productFactories;
-    private final int NUMBER_OF_PRODUCT_ONE_CATEGORY=10;
+    private final int NUMBER_OF_PRODUCT_ONE_CATEGORY=0;
     private final List<Student> students;
 
     private List<IVendingMachine> vendingMachines;
@@ -52,7 +52,7 @@ public class Campus {
     public List<Student> createStudents(){
         LinkedList<Student> result = new LinkedList<>();
         for (String student: Constants.studentsInStrings){
-            String[] name_id=student.split(" ");
+            String[] name_id=student.split("_");
             result.add(new Student(name_id[0], name_id[1]));
         }
 
