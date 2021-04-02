@@ -1,6 +1,8 @@
 package com.example.vendingmachine.vendingmachine.products;
 
-public class IProduct {
+import java.util.ArrayList;
+
+abstract public class IProduct {
     private String name;
     private int price;
     private int number;

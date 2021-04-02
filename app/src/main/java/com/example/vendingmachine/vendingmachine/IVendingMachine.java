@@ -23,6 +23,9 @@ public class IVendingMachine implements Serializable {
     private final MutableLiveData<List<IProduct>> chosenProducts;
     private final Map<IProduct, Integer> products;
 
+    //
+    private final MutableLiveData<Boolean> requestToOpenFragment;
+
     private ObservableField<String> status;
     private ObservableField<String> student;
     private ObservableInt amount;
@@ -30,6 +33,7 @@ public class IVendingMachine implements Serializable {
     public IVendingMachine(List<Student> queue, Map<IProduct, Integer> products) {
         this.queue = new MutableLiveData<>();
         this.chosenProducts=new MutableLiveData<>();
+        this.requestToOpenFragment=new MutableLiveData<>();
         this.products = products;
 
         this.status=new ObservableField<>();
@@ -40,6 +44,10 @@ public class IVendingMachine implements Serializable {
         this.status.set("Простаивает");
     }
 
+    public void onClick(){
+        requestToOpenFragment.setValue(true);
+        requestToOpenFragment.setValue(false);
+    }
 
     public void processClient(){
         if (queue.getValue().size()==0) {
@@ -164,7 +172,7 @@ public class IVendingMachine implements Serializable {
         }
         private void mySleep(){
             try {
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.SECONDS.sleep(3);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -194,6 +202,7 @@ public class IVendingMachine implements Serializable {
 
     }
 
+    public MutableLiveData<Boolean> getRequestToOpenFragment(){return requestToOpenFragment;}
     public ObservableField<String> getStatus() {
         return status;
     }

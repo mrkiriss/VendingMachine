@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.vendingmachine.databinding.ItemStudentBinding;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.Inflater;
 
@@ -20,6 +21,10 @@ public class QueueAdapter extends RecyclerView.Adapter<QueueAdapter.StudentViewH
     public void setContent(List<Student> students){
         this.students=students;
         notifyDataSetChanged();
+    }
+
+    public QueueAdapter(){
+        this.students= Collections.EMPTY_LIST;
     }
 
     @NonNull

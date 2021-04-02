@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.vendingmachine.databinding.ItemProductBinding;
 import com.example.vendingmachine.vendingmachine.products.IProduct;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.Inflater;
@@ -22,6 +23,11 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     public void setContent(List<IProduct> products){
         this.products=products;
         notifyDataSetChanged();
+    }
+
+
+    public ProductsAdapter(){
+        this.products= Collections.EMPTY_LIST;
     }
 
     @NonNull

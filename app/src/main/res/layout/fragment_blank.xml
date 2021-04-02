@@ -9,12 +9,14 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/fragmentContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="2dp"
         android:background="@drawable/border"
         android:orientation="vertical"
-        android:weightSum="21">
+        android:weightSum="21"
+        android:onClick="@{()->vendingMachine.onClick()}">
 
         <TextView
             android:id="@+id/vendingName"

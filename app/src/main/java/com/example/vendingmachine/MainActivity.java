@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         Bundle data1 = new Bundle();
         data1.putSerializable("vending", campus.getVendingMachine(0));
         data1.putString("vendingName", "Торговый автомат 1");
+        data1.putInt("index", 1);
+        data1.putBoolean("isStarted", false);
+
         fragment1.setArguments(data1);
 
         getSupportFragmentManager().beginTransaction()
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         Bundle data2 = new Bundle();
         data2.putSerializable("vending", campus.getVendingMachine(1));
         data2.putString("vendingName", "Торговый автомат 2");
+        data2.putInt("index", 2);
+        data2.putBoolean("isStarted", false);
+
         fragment2.setArguments(data2);
 
         getSupportFragmentManager().beginTransaction()
@@ -43,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
         Bundle data3 = new Bundle();
         data3.putSerializable("vending", campus.getVendingMachine(2));
         data3.putString("vendingName", "Торговый автомат 3");
+        data3.putInt("index", 3);
+        data3.putBoolean("isStarted", false);
+
         fragment3.setArguments(data3);
 
         getSupportFragmentManager().beginTransaction()
@@ -52,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         Bundle data4 = new Bundle();
         data4.putSerializable("vending", campus.getVendingMachine(3));
         data4.putString("vendingName", "Торговый автомат 4");
+        data4.putInt("index", 4);
+        data4.putBoolean("isStarted", false);
         fragment4.setArguments(data4);
 
         getSupportFragmentManager().beginTransaction()
